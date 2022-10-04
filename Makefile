@@ -1,3 +1,6 @@
+install:
+	poetry install
+
 build:
 	poetry build
 
@@ -18,7 +21,7 @@ test-cov:
 
 
 test-work:
-	poetry run page_loader --output tests/fixtures/ https://ru.hexlet.io/courses
+	poetry run page_loader https://ru.hexlet.io/courses
 
 
 #git_hub_make

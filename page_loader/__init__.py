@@ -1,3 +1,4 @@
+import os
 import requests
 
 
@@ -16,6 +17,8 @@ def url_to_name(url):
 
 
 def download(url, output):
+    if output is None:
+        output = f"{os.getcwd()}r'\'"
     new_output = output + url_to_name(url)
     response = requests.get(url)
     with open(new_output, 'w', encoding="utf-8") as f:
