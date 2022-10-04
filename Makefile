@@ -21,7 +21,7 @@ test-cov:
 
 
 test-work:
-	poetry run page-loader --output /tests/fixtures/ https://ru.hexlet.io/courses
+	poetry run page-loader --output /tests/fixtures https://ru.hexlet.io/courses
 
 test-work1:
 	poetry run page-loader https://ru.hexlet.io/courses
