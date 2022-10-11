@@ -1,37 +1,26 @@
 import requests
 import os
 from page_loader.parsing import download_img
+from page_loader.naming_generators import url2name
 
 
-def url_to_name(url, output):
-    name = ''
-    if url.startswith('http://'):
-        url = url[7:]
-    elif url.startswith('https://'):
-        url = url[8:]
-    for char in url:
-        if char.isalnum():
-            name += char
-        else:
-            name += '-'
-    if name[-1] == '-':
-        name = name[:-1]
-    return os.path.join(output, f"{name}.html"), f"{name}_files"
-
-
-def makedr(out, dirname):
-    newpath = f'{os.path.join(os.getcwd(), out, dirname)}'
+def makedr(output, dirname):
+    newpath = f'{os.path.join(os.getcwd(), output, dirname)}'
     if not os.path.exists(newpath):
         os.makedirs(newpath)
 
 
 def download(url, output):
-    file_out, dir_name = url_to_name(url, output)
+    # Generate all the names I need
+    name = url2name(url)
+    file_out = os.path.join(output, f"{name}.html")
+    dir_name = f"{name}_files"
+    # Process of parsing and writing results to the file
     response = requests.get(url)
     with open(file_out, 'w', encoding="utf-8") as f:
         f.write(response.text)
-    makedr(output, dir_name)
-    download_img(file_out, f"{os.path.join(output, dir_name)}")
+        makedr(output, dir_name)
+        download_img(url, name, file_out, f"{os.path.join(output, dir_name)}")
     return file_out
 
 

@@ -29,7 +29,7 @@ add:
 	git add .
 
 commit:
-	git commit -am "Second Step"
+	git commit -am "Fixes"
 
 p:
 	git push
