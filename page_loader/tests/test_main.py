@@ -4,16 +4,31 @@ import tempfile
 import requests_mock
 from page_loader import url_to_name
 from page_loader import download
-from pathlib import Path
 
 
 def get_fixture_path(name):
     return os.path.join('page_loader', 'tests', 'fixtures', name)
 
 
-def test_correct_name():
-    file_path = url_to_name('https://ru.hexlet.io/courses')
-    assert file_path == 'ru-hexlet-io-courses.html'
+@pytest.mark.parametrize(
+    ("url", "result"),
+    [
+        (
+            "https://ru.hexlet.io/courses",
+            'ru-hexlet-io-courses.html'
+        ),
+        (
+            "http://ent-services.ru",
+            "ent-services-ru.html"
+        ),
+        (
+            "https://github.com/JMURv/",
+            "github-com-JMURv.html"
+        )
+    ]
+)
+def test_correct_name(url, result):
+    assert url_to_name(url) == result
 
 
 @pytest.mark.parametrize(

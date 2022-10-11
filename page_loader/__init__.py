@@ -1,8 +1,9 @@
 import requests
-from sys import platform
+import os
+from page_loader.parsing import download_img
 
 
-def url_to_name(url):
+def url_to_name(url, output):
     name = ''
     if url.startswith('http://'):
         url = url[7:]
@@ -13,24 +14,25 @@ def url_to_name(url):
             name += char
         else:
             name += '-'
-    return f"{name}.html"
+    if name[-1] == '-':
+        name = name[:-1]
+    return os.path.join(output, f"{name}.html"), f"{name}_files"
 
 
-def system_checker(url, output):
-    if platform in ("linux", "linux2", "darwin"):
-        return f"{output}" + url_to_name(url)
-    if output.endswith('\\'):
-        return f"{output}{url_to_name(url)}"
-    else:
-        return f"{output}\\{url_to_name(url)}"
+def makedr(out, dirname):
+    newpath = f'{os.path.join(os.getcwd(), out, dirname)}'
+    if not os.path.exists(newpath):
+        os.makedirs(newpath)
 
 
 def download(url, output):
-    new_output = system_checker(url, output)
+    file_out, dir_name = url_to_name(url, output)
     response = requests.get(url)
-    with open(new_output, 'w', encoding="utf-8") as f:
+    with open(file_out, 'w', encoding="utf-8") as f:
         f.write(response.text)
-    return new_output
+    makedr(output, dir_name)
+    download_img(file_out, f"{os.path.join(output, dir_name)}")
+    return file_out
 
 
 # print(download('https://ru.hexlet.io/courses', 'tests\\fixtures\\'))
