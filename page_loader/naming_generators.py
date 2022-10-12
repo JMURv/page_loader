@@ -18,5 +18,9 @@ def url2name(url):
 
 def generate_assets_name(link, site_name):
     list_of_path = link.split('/')
-    filename = list_of_path[-1]
-    return f"{site_name}_files/{site_name}-{filename}"
+    if list_of_path[0] not in ('http:', 'https:'):
+        filename = '-'.join(list_of_path)
+        return f"{site_name}_files/{site_name}-{filename}"
+    extension = link.split('.')[-1]
+    alll = link.split('.')[:-1]
+    return f"{site_name}_files/.{'-'.join(list_of_path)}{extension}"
