@@ -34,8 +34,3 @@ def generate_local_assets_name(link, site_name, url):
     if '.' in list_of_path[-1]:
         return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
     return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
-
-# print(generate_local_assets_name('/assets/application.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
-# print(generate_local_assets_name('/courses', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
-# print(generate_http_assets_name('https://ru.hexlet.io/packs/js/runtime.js', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
-# print(generate_http_assets_name('https://cdn2.hexlet.io/assets/menu.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
