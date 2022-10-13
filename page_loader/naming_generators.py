@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 
 
 def url2name(url):
@@ -16,11 +17,25 @@ def url2name(url):
     return name
 
 
-def generate_assets_name(link, site_name):
+def generate_http_assets_name(link, site_name, url):
+    link_domain = urlparse(link).netloc
+    original_domain = urlparse(url).netloc
+    if link_domain == original_domain:
+        extension = link.split('.')[-1]
+        link = url2name(link)
+        link = '-'.join(link.split('-')[:-1])
+        return f"{site_name}_files/{link}.{extension}"
+    return link
+
+
+def generate_local_assets_name(link, site_name, url):
     list_of_path = link.split('/')
-    if list_of_path[0] not in ('http:', 'https:'):
-        filename = '-'.join(list_of_path)
-        return f"{site_name}_files/{site_name}-{filename}"
-    extension = link.split('.')[-1]
-    alll = link.split('.')[:-1]
-    return f"{site_name}_files/.{'-'.join(list_of_path)}{extension}"
+    filename = '-'.join(list_of_path)
+    if '.' in list_of_path[-1]:
+        return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
+    return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
+
+# print(generate_local_assets_name('/assets/application.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
+# print(generate_local_assets_name('/courses', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
+# print(generate_http_assets_name('https://ru.hexlet.io/packs/js/runtime.js', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
+# print(generate_http_assets_name('https://cdn2.hexlet.io/assets/menu.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))

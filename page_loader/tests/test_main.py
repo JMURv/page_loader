@@ -36,7 +36,7 @@ def test_correct_name(url, result):
     [
         (
             "https://ru.hexlet.io/courses",
-            'ru-hexlet-io-courses_no_load.html'
+            "ru-hexlet-io-courses_no_load.html"
         ),
     ]
 )
