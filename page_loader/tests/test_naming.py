@@ -1,27 +1,5 @@
 import pytest
-from page_loader.naming_generators import generate_http_assets_name, generate_local_assets_name
-
-
-@pytest.mark.parametrize(
-    ("fixture", "site_name", "url", "result"),
-    [
-        (
-            '/assets/application.css',
-            'ru-hexlet-io-courses',
-            'https://ru.hexlet.io/courses',
-            'ru-hexlet-io-courses_files/ru-hexlet-io-assets-application.css'
-        ),
-        (
-            '/courses',
-            'ru-hexlet-io-courses',
-            'https://ru.hexlet.io/courses',
-            'ru-hexlet-io-courses_files/ru-hexlet-io-courses.html'
-        )
-    ]
-)
-def test_local_naming(site_name, url, fixture, result):
-    output = generate_local_assets_name(fixture, site_name, url)
-    assert output == result
+from page_loader.naming_generators import generate_assets_path
 
 
 @pytest.mark.parametrize(
@@ -38,9 +16,21 @@ def test_local_naming(site_name, url, fixture, result):
             'ru-hexlet-io-courses',
             'https://ru.hexlet.io/courses',
             'https://cdn2.hexlet.io/assets/menu.css'
-        )
+        ),
+        (
+            '/courses',
+            'ru-hexlet-io-courses',
+            'https://ru.hexlet.io/courses',
+            'ru-hexlet-io-courses_files/ru-hexlet-io-courses.html'
+        ),
+        (
+            '/assets/application.css',
+            'ru-hexlet-io-courses',
+            'https://ru.hexlet.io/courses',
+            'ru-hexlet-io-courses_files/ru-hexlet-io-assets-application.css'
+        ),
     ]
 )
-def test_http_naming(site_name, url, fixture, result):
-    output = generate_http_assets_name(fixture, site_name, url)
+def test_naming(site_name, url, fixture, result):
+    output = generate_assets_path(fixture, site_name, url)
     assert output == result

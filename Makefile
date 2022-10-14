@@ -17,7 +17,7 @@ test-vv:
 	poetry run pytest -vv
 
 test-coverage:
-	poetry run pytest -cov
+	poetry run pytest --cov-report term-missing --cov=page_loader
 
 test-cov:
 	poetry run pytest --cov=page_loader --cov-report xml

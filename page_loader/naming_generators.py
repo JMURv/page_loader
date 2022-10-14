@@ -17,20 +17,27 @@ def url2name(url):
     return name
 
 
-def generate_http_assets_name(link, site_name, url):
-    link_domain = urlparse(link).netloc
-    original_domain = urlparse(url).netloc
-    if link_domain == original_domain:
-        extension = link.split('.')[-1]
-        link = url2name(link)
-        link = '-'.join(link.split('-')[:-1])
-        return f"{site_name}_files/{link}.{extension}"
-    return link
+def generate_assets_path(link, site_name, url):
+    if link.lower().startswith("https"):
+        link_domain = urlparse(link).netloc
+        original_domain = urlparse(url).netloc
+        if link_domain == original_domain:
+            extension = link.split('.')[-1]
+            link = url2name(link)
+            link = '-'.join(link.split('-')[:-1])
+            return f"{site_name}_files/{link}.{extension}"
+        return link
+    else:
+        list_of_path = link.split('/')
+        filename = '-'.join(list_of_path)
+        if '.' in list_of_path[-1]:
+            return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
+        return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
 
 
-def generate_local_assets_name(link, site_name, url):
-    list_of_path = link.split('/')
-    filename = '-'.join(list_of_path)
-    if '.' in list_of_path[-1]:
-        return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
-    return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
+# def generate_local_assets_name(link, site_name, url):
+#     list_of_path = link.split('/')
+#     filename = '-'.join(list_of_path)
+#     if '.' in list_of_path[-1]:
+#         return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
+#     return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
