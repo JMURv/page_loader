@@ -68,14 +68,16 @@ def test_download_assets(url, fixture_path):
             with tempfile.TemporaryDirectory() as tmpdirname:
                 temp_dir = f"{os.path.abspath(tmpdirname)}"
                 download(url, temp_dir)
-                directory_path = os.path.join(temp_dir, 'ru-hexlet-io-courses_files')
-                img_path = os.path.join(
+                directory_path = os.path.join(
+                    temp_dir, 'ru-hexlet-io-courses_files'
+                )
+                css_path = os.path.join(
                     temp_dir,
                     'ru-hexlet-io-courses_files',
-                    'at_a_laptop-8c6e59267f91a6bf13bae0e5c0f7e1f36accc440b8d760bca08ab244e2b8bdbf.png'
+                    'application-16524c7e.css'
                 )
                 assert os.path.exists(directory_path)
-                assert os.path.exists(img_path)
+                assert os.path.exists(css_path)
 
 
 @pytest.mark.parametrize(

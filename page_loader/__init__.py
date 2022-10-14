@@ -1,23 +1,22 @@
 import os
-from page_loader.parsing import prepare_assets
-from page_loader.naming_generators import url2name
 import logging
-from urllib.parse import urlparse
+from page_loader.parsing import makedir
+from page_loader.parsing import prepare_assets, download_assets
+from page_loader.naming_generators import url2name
 
 
 def download(url, output):
     logging.basicConfig(level='INFO')
     logger = logging.getLogger()
-    logger.info(f'Requested url : {url}')
-    # Generating all the names we'll need
+    logger.info(f'Requested url: {url}')
     site_name = url2name(url)
     html_out = os.path.join(output, f"{site_name}.html")
     logger.info(f'Writing file to: {html_out}')
-    # Process of parsing and writing results to the file
-    prepare_assets(url, site_name, html_out, output)
+    html, for_down = prepare_assets(url, site_name)
+    with open(html_out, 'w', encoding='UTF-8') as f:
+        f.write(html)
+    logger.info('Downloading assets..')
+    output_files = makedir(output, f"{site_name}_files")
+    download_assets(url, for_down, output_files)
+    logger.info('Finished!')
     return html_out
-
-
-# print(download('https://ru.hexlet.io/courses', 'tests\\fixtures\\'))
-# print(download('https://ru.hexlet.io/courses', 'tests\\fixtures\\'))
-# print(download('https://ru.hexlet.io/courses'))
