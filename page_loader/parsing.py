@@ -22,8 +22,8 @@ def download_assets(url, for_down, output):
         filename, link = asset[0], asset[1]
         out = os.path.join(output, filename)
         try:
-            r = req.get(urljoin(url[:-1], link))
-            # r = req.get(link)
+            # r = req.get(urljoin(url, link))
+            r = req.get(link)
             with open(out, 'wb') as f:
                 f.write(r.content)
         except Exception as ex:
@@ -49,10 +49,11 @@ def prepare_assets(url, site_name):
                     else f"{url2name(link[attr])}.html"
                 if not link[attr].startswith('https://'):
                     link[attr] = urljoin(url, link[attr])
-                # print(filename, link[attr])
                 for_download.append((filename, link[attr]))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
                 link[attr] = link[attr].replace(link[attr], new_link_name)
+                # print(new_link_name)
+    # print(for_download)
     return soup.prettify(), for_download
 
 

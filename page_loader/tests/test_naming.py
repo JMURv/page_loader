@@ -1,5 +1,27 @@
 import pytest
 from page_loader.naming_generators import generate_assets_path
+from page_loader.naming_generators import url2name
+
+
+@pytest.mark.parametrize(
+    ("url", "result"),
+    [
+        (
+            "https://ru.hexlet.io/courses",
+            'ru-hexlet-io-courses'
+        ),
+        (
+            "http://ent-services.ru",
+            "ent-services-ru"
+        ),
+        (
+            "https://github.com/JMURv/",
+            "github-com-JMURv"
+        )
+    ]
+)
+def test_correct_name(url, result):
+    assert url2name(url) == result
 
 
 @pytest.mark.parametrize(
