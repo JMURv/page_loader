@@ -15,7 +15,7 @@ def makedir(output, dirname):
     return newpath
 
 
-def download_assets(url, for_down, output):
+def download_assets(for_down, output):
     bar = Bar('Loading', fill='|', suffix='%(percent)d%%', max=len(for_down))
     for asset in for_down:
         bar.next()
@@ -29,14 +29,15 @@ def download_assets(url, for_down, output):
         except Exception as ex:
             cause_info = (ex.__class__, ex, ex.__traceback__)
             logging.debug(str(ex), exc_info=cause_info)
-            logging.warning(f"Resource {link} wasn't downloaded")
+            raise Warning(f"Resource {link} wasn't downloaded")
+            # logging.warning(f"Resource {link} wasn't downloaded")
     bar.finish()
 
 
 def prepare_assets(url, site_name):
     response = req.get(url)
     if response.status_code != 200:
-        raise Warning(f'Status code error: {url.status_code}')
+        raise Warning(f'Status code error: {response.status_code}')
     for_download = []
     soup = bs(response.content, 'html.parser')
     assets = ['img', 'link', 'script']
@@ -52,15 +53,4 @@ def prepare_assets(url, site_name):
                 for_download.append((filename, link[attr]))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
                 link[attr] = link[attr].replace(link[attr], new_link_name)
-                # print(new_link_name)
-    # print(for_download)
     return soup.prettify(), for_download
-
-
-# print(prepare_assets(
-#     'https://skillbox.ru/',
-#     'skillbox-ru'))
-
-# print(prepare_assets(
-#     'https://ru.hexlet.io/courses',
-#     'ru-hexlet-io-courses'))

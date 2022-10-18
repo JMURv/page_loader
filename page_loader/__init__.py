@@ -1,7 +1,6 @@
 import os
 import logging
-from page_loader.parsing import makedir
-from page_loader.parsing import prepare_assets, download_assets
+from page_loader.parsing import makedir, prepare_assets, download_assets
 from page_loader.naming_generators import url2name
 
 
@@ -17,6 +16,6 @@ def download(url, output):
         f.write(html)
     logger.info('Downloading assets..')
     output_files = makedir(output, f"{site_name}_files")
-    download_assets(url, for_down, output_files)
+    download_assets(for_down, output_files)
     logger.info('Finished!')
     return html_out
