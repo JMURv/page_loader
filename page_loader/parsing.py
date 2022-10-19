@@ -41,9 +41,10 @@ def validator_assets(url, link):
     filename = link.split('/')[-1]
     rename_index = link.rfind('/')
     rename_link = url2name(link[:rename_index].strip())
-    filename = f"{rename_link}-{filename}"
-    filename = filename if '.' in filename and not re.match('[0-9]', filename) \
+    filename = filename if '.' in filename and not \
+        filename.startswith(re.match('[0-9]', filename))\
         else f"{url2name(link)}.html"
+    filename = f"{rename_link}-{filename}"
     if '?' in filename:
         index = filename.rfind('?')
         filename = filename[:index]
