@@ -1,5 +1,6 @@
 import os
 import requests as req
+import re
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin
 from page_loader.naming_generators import generate_assets_path
@@ -41,7 +42,7 @@ def validator_assets(url, link):
     rename_index = link.rfind('/')
     rename_link = url2name(link[:rename_index].strip())
     filename = f"{rename_link}-{filename}"
-    filename = filename if '.' in filename \
+    filename = filename if '.' in filename and not re.match('[0-9]', filename) \
         else f"{url2name(link)}.html"
     if '?' in filename:
         index = filename.rfind('?')

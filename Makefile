@@ -26,10 +26,10 @@ test-1:
 	poetry run page-loader -o page_loader\tests\fixtures\ https://ru.hexlet.io/courses
 
 test-2:
-	poetry run page-loader -o page_loader\tests\fixtures\ https://skillbox.ru/
+	poetry run page_loader -o page_loader\tests\fixtures\ https://skillbox.ru/
 
 test-3:
-	poetry run page-loader -o page_loader\tests\fixtures\ https://designdepot.ru/projects/
+	poetry run page_loader -o page_loader\tests\fixtures\ https://designdepot.ru/projects/
 
 add:
 	git add .
