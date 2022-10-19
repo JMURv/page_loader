@@ -12,7 +12,7 @@ def main():
         print(f"{arg.url} was saved here: {path}")
     except Exception as ex:
         logging.error(ex)
-        sys.exit(0)
+        sys.exit(1)
 
 
 if __name__ == '__main__':
