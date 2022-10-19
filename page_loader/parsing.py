@@ -26,6 +26,7 @@ def download_assets(for_down, output):
         filename, link = asset[0], asset[1]
         out = os.path.join(output, filename)
         try:
+            logging.info(f"Trying to download {filename} with link{link} to the {out}")
             r = req.get(link)
             with open(out, 'wb') as f:
                 f.write(r.content)
