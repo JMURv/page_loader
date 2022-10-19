@@ -34,6 +34,8 @@ def http_path(link, site_name, url):
             index = link[::-1].index("/")
             out_link = f"{url2name(link[:-index-1])}-{filename}"
             return f"{site_name}_files/{out_link}"
+        else:
+            return f"{site_name}_files/{site_name}.html"
     return link
 
 
