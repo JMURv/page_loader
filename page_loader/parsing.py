@@ -1,12 +1,13 @@
 import os
 import requests as req
-import re
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin
 from page_loader.naming_generators import generate_assets_path
 import logging
 from progress.bar import Bar
 from page_loader.naming_generators import url2name
+
+DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
 
 def makedir(output, dirname):
@@ -41,10 +42,9 @@ def validator_assets(url, link):
     filename = link.split('/')[-1]
     rename_index = link.rfind('/')
     rename_link = url2name(link[:rename_index].strip())
-    filename = filename if '.' in filename and not \
-        filename.startswith(re.match('[0-9]', filename))\
-        else f"{url2name(link)}.html"
     filename = f"{rename_link}-{filename}"
+    filename = filename if '.' in filename and not filename[-1] in DIGITS\
+        else f"{url2name(link)}.html"
     if '?' in filename:
         index = filename.rfind('?')
         filename = filename[:index]
