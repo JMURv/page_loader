@@ -24,14 +24,12 @@ def download_assets(for_down, output):
         filename, link = asset[0], asset[1]
         out = os.path.join(output, filename)
         try:
-            # r = req.get(urljoin(url, link))
             r = req.get(link)
             with open(out, 'wb') as f:
                 f.write(r.content)
         except Exception as ex:
             cause_info = (ex.__class__, ex, ex.__traceback__)
             logging.debug(str(ex), exc_info=cause_info)
-            # raise Warning(f"Resource {link} wasn't downloaded")
             logging.warning(f"Resource {link} wasn't downloaded")
     bar.finish()
 
@@ -40,11 +38,11 @@ def validator_assets(url, link):
     filename = link.split('/')[-1]
     filename = filename if '.' in filename \
         else f"{url2name(link)}.html"
+    if '?' in filename:
+        index = filename.rfind('?')
+        filename = filename[:index]
     if not link.startswith('https://'):
         link = urljoin(url, link)
-    if '?' in link.split('/')[-1]:
-        index = link.rfind('?')
-        link = link[:index]
     return filename, link
 
 
