@@ -2,6 +2,7 @@ import os
 import logging
 from page_loader.parsing import makedir, prepare_assets, download_assets
 from page_loader.naming_generators import url2name
+import sys
 
 
 def download(url, output):

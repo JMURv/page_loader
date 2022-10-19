@@ -11,6 +11,8 @@ from page_loader.naming_generators import url2name
 def makedir(output, dirname):
     newpath = f'{os.path.join(os.getcwd(), output, dirname)}'
     if not os.path.exists(newpath):  # Check if dir already exists
+        logging.info(
+            f"directory not exists: {newpath}")
         os.makedirs(newpath)
     return newpath
 
@@ -29,9 +31,21 @@ def download_assets(for_down, output):
         except Exception as ex:
             cause_info = (ex.__class__, ex, ex.__traceback__)
             logging.debug(str(ex), exc_info=cause_info)
-            raise Warning(f"Resource {link} wasn't downloaded")
-            # logging.warning(f"Resource {link} wasn't downloaded")
+            # raise Warning(f"Resource {link} wasn't downloaded")
+            logging.warning(f"Resource {link} wasn't downloaded")
     bar.finish()
+
+
+def validator_assets(url, link):
+    filename = link.split('/')[-1]
+    filename = filename if '.' in filename \
+        else f"{url2name(link)}.html"
+    if not link.startswith('https://'):
+        link = urljoin(url, link)
+    if '?' in link.split('/')[-1]:
+        index = link.rfind('?')
+        link = link[:index]
+    return filename, link
 
 
 def prepare_assets(url, site_name):
@@ -45,11 +59,7 @@ def prepare_assets(url, site_name):
         attr = 'src' if asset in ('img', 'script') else 'href'
         for link in soup.find_all(asset):
             if link.attrs.get(attr):
-                filename = link[attr].split('/')[-1]
-                filename = filename if '.' in filename \
-                    else f"{url2name(link[attr])}.html"
-                if not link[attr].startswith('https://'):
-                    link[attr] = urljoin(url, link[attr])
+                filename, link[attr] = validator_assets(url, link[attr])
                 for_download.append((filename, link[attr]))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
                 link[attr] = link[attr].replace(link[attr], new_link_name)
