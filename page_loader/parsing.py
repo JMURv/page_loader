@@ -1,7 +1,7 @@
 import os
 import requests as req
 from bs4 import BeautifulSoup as bs
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 from page_loader.naming_generators import generate_assets_path
 import logging
 from progress.bar import Bar
@@ -26,7 +26,6 @@ def download_assets(for_down, output):
         filename, link = asset[0], asset[1]
         out = os.path.join(output, filename)
         try:
-            logging.info(f"Trying to download {filename} with link{link} to the {out}")
             r = req.get(link)
             with open(out, 'wb') as f:
                 f.write(r.content)
@@ -38,14 +37,17 @@ def download_assets(for_down, output):
 
 
 def validator_assets(url, link):
-    if not link.startswith('https://') or \
-            link.startswith('http://'):
-        link = urljoin(url, link)
+    if link.startswith('https://'):
+        original_net = urlparse(url).netloc
+        this_net = urlparse(link).netloc
+        if original_net != this_net:
+            if '.' not in link.split('/')[-1]:
+                return '0', '0'
     filename = link.split('/')[-1]
     rename_index = link.rfind('/')
     rename_link = url2name(link[:rename_index].strip())
     filename = f"{rename_link}-{filename}"
-    filename = filename if '.' in filename and not filename[-1] in DIGITS\
+    filename = filename if '.' in filename and not filename[-1] in DIGITS \
         else f"{url2name(link)}.html"
     if '?' in filename:
         index = filename.rfind('?')
@@ -65,6 +67,8 @@ def prepare_assets(url, site_name):
         for link in soup.find_all(asset):
             if link.attrs.get(attr):
                 filename, link[attr] = validator_assets(url, link[attr])
+                if filename == '0' or link == '0':
+                    break
                 for_download.append((filename, link[attr]))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
                 link[attr] = link[attr].replace(link[attr], new_link_name)

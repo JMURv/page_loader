@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Новые уроки на Хекслете</title>
+    <description>Практические уроки по программированию</description>
+    <link>https://ru.hexlet.io/</link>
+    <webMaster>info@hexlet.io</webMaster>
+    <item>
+      <title>Вложенные циклы / Java: Массивы</title>
+      <guid isPermaLink="false">2334</guid>
+      <link>https://ru.hexlet.io/courses/java-arrays/lessons/nested-loops/theory_unit</link>
+      <description>Цель: Научиться вкладывать циклы друг в друга</description>
+      <pubDate>Thu, 20 Oct 2022 12:11:20 +0000</pubDate>
+    </item>
+    <item>
+      <title>Тест-анализ / QA-инженер: Основы</title>
+      <guid isPermaLink="false">3015</guid>
+      <link>https://ru.hexlet.io/courses/qa-engineer/lessons/test-analysis/theory_unit</link>
+      <description>Цель: Узнать о подходах к тестированию в процессе разработки ПО</description>
+      <pubDate>Thu, 20 Oct 2022 09:59:22 +0000</pubDate>
+    </item>
+    <item>
+      <title>Организация процесса тестирования / QA-инженер: Основы</title>
+      <guid isPermaLink="false">3014</guid>
+      <link>https://ru.hexlet.io/courses/qa-engineer/lessons/testing-process/theory_unit</link>
+      <description>Цель: Познакомиться с планированием тестирования</description>
+      <pubDate>Thu, 20 Oct 2022 09:59:22 +0000</pubDate>
+    </item>
+    <item>
+      <title>Работа с баг-трекером / QA-инженер: Основы</title>
+      <guid isPermaLink="false">3013</guid>
+      <link>https://ru.hexlet.io/courses/qa-engineer/lessons/bug-tracker/theory_unit</link>
+      <description>Цель: Узнать что такое дефекты и как с ними работать</description>
+      <pubDate>Thu, 20 Oct 2022 09:59:21 +0000</pubDate>
+    </item>
+    <item>
+      <title>Разработка тест-кейсов / QA-инженер: Основы</title>
+      <guid isPermaLink="false">3012</guid>
+      <link>https://ru.hexlet.io/courses/qa-engineer/lessons/test-cases/theory_unit</link>
+      <description>Цель: Рассмотреть алгоритмы правильного составления тест-кейсов</description>
+      <pubDate>Thu, 20 Oct 2022 09:59:21 +0000</pubDate>
+    </item>
+    <item>
+      <title>Сайт в интернете / Введение в интернет</title>
+      <guid isPermaLink="false">3098</guid>
+      <link>https://ru.hexlet.io/courses/internet-fundamentals/lessons/site/theory_unit</link>
+      <description>Цель: Узнать о том, что такое сайт в интернете и из чего он состоит. Разобраться в отличии Frontend от Backend. Как хостинг, домен и DNS позволяют пользоватям зайти на сайт</description>
+      <pubDate>Thu, 20 Oct 2022 09:04:09 +0000</pubDate>
+    </item>
+    <item>
+      <title>Деплой / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3123</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/deploy/theory_unit</link>
+      <description>Цель: Познакомиться с ключевыми понятиями и процессом деплоя</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>Сессия / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3119</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/session/theory_unit</link>
+      <description>Цель: Научиться использовать сессию в Flask</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>Cookies / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3118</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/cookies/theory_unit</link>
+      <description>Цель: Научиться использовать куки в Flask</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>Model-View-Controller (MVC) / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3117</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/mvc/theory_unit</link>
+      <description>Цель: Познакомиться с одним из ключевых архитектурных паттернов построения пользовательских приложений</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>CRUD: Удаление / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3116</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/crud-delete/theory_unit</link>
+      <description>Цель: Научиться удалять сущности</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>CRUD: Обновление / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3115</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/crud-update/theory_unit</link>
+      <description>Цель: Научиться обновлять сущности</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>CRUD: Создание / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3114</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/crud-create/theory_unit</link>
+      <description>Цель: Научиться создавать сущности</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>CRUD / Python: Веб-разработка (Flask)</title>
+      <guid isPermaLink="false">3113</guid>
+      <link>https://ru.hexlet.io/courses/python-flask/lessons/crud/theory_unit</link>
+      <description>Цель: Познакомиться с типичными операциями веб-приложений</description>
+      <pubDate>Tue, 18 Oct 2022 16:17:16 +0000</pubDate>
+    </item>
+    <item>
+      <title>Клиент-серверная архитектура / Введение в интернет</title>
+      <guid isPermaLink="false">3055</guid>
+      <link>https://ru.hexlet.io/courses/internet-fundamentals/lessons/client-server/theory_unit</link>
+      <description>Цель: Изучить понятие клиент-серверной архитектуры и какие компоненты в нее входят. Разобраться с тем, кто является клиентом, а кто сервером и почему это разделение важно. Узнать о балансировщиках и кластерах</description>
+      <pubDate>Fri, 14 Oct 2022 08:43:55 +0000</pubDate>
+    </item>
+    <item>
+      <title>Обмен информацией между компьютерами / Введение в интернет</title>
+      <guid isPermaLink="false">3002</guid>
+      <link>https://ru.hexlet.io/courses/internet-fundamentals/lessons/tcp-ip/theory_unit</link>
+      <description>Цель: Узнаем, в каком виде компьютеры обмениваются информацией друг с другом. Разберем модель TCP/IP и остановимся подробнее на транспортном уровне</description>
+      <pubDate>Fri, 14 Oct 2022 08:43:55 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
