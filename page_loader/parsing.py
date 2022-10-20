@@ -38,7 +38,8 @@ def download_assets(for_down, output):
 
 
 def validator_assets(url, link):
-    if not link.startswith('https://'):
+    if not link.startswith('https://') or \
+            link.startswith('http://'):
         link = urljoin(url, link)
     filename = link.split('/')[-1]
     rename_index = link.rfind('/')
