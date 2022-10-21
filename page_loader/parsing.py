@@ -50,7 +50,7 @@ def validator_assets(url, link):
             filename = filename[:index]
         return filename, link
     else:
-        return '0', '0'
+        return '0', link
 
 
 def prepare_assets(url, site_name):
@@ -65,7 +65,7 @@ def prepare_assets(url, site_name):
         for link in soup.find_all(asset):
             if link.attrs.get(attr):
                 filename, link[attr] = validator_assets(url, link[attr])
-                if filename == '0' or link[attr] == '0':
+                if filename == '0':
                     continue
                 for_download.append((filename, link[attr]))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
