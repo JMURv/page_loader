@@ -111,5 +111,5 @@ def test_download(url, fixture_path):
                 assert os.path.exists(output_path)
                 assert os.path.exists(files_path)
                 assert len(os.listdir(temp_dir)) == 2
-                assert len(os.listdir(files_path)) == 4
+                assert len(os.listdir(files_path)) == 1
                 # assert result == expected
