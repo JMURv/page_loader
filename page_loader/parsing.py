@@ -66,7 +66,7 @@ def prepare_assets(url, site_name):
             if link.attrs.get(attr):
                 filename, link[attr] = validator_assets(url, link[attr])
                 if filename == '0' or link[attr] == '0':
-                    break
+                    continue
                 for_download.append((filename, link[attr]))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
                 link[attr] = link[attr].replace(link[attr], new_link_name)
