@@ -26,7 +26,7 @@ def download_assets(for_down, output):
         filename, link = asset[0], asset[1]
         out = os.path.join(output, filename)
         try:
-            # print(filename, link)
+            print(filename, link)
             r = req.get(link)
             with open(out, 'wb') as f:
                 f.write(r.content)
@@ -46,7 +46,7 @@ def validator_assets(url, link):
         rename_index = down_link.rfind('/')
         rename_link = url2name(down_link[:rename_index].strip('/'))
         filename = f"{rename_link}-{filename}"
-        filename = filename if '.' in filename else f"{url2name(link)}.html"
+        filename = filename if '.' in filename else f"{url2name(down_link)}.html"
         if '?' in filename:
             index = filename.rfind('?')
             filename = filename[:index]
