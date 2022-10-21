@@ -12,9 +12,11 @@ def url2name(url):
             name += char
         else:
             name += '-'
-    if name[-1] == '-':
-        name = name[:-1]
-    return name
+    return name.strip('-')
+
+
+# localhost-blog-about_files/localhost-blog-about.html - expected
+# /blog/about - input
 
 
 def local_path(link, site_name, url):
@@ -43,3 +45,8 @@ def generate_assets_path(link, site_name, url):
     if link.lower().startswith("https"):
         return http_path(link, site_name, url)
     return local_path(link, site_name, url)
+
+
+# print(generate_assets_path('/about/rss.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
+# print(generate_assets_path('/about/contacts', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
+# print(generate_assets_path('https://cdn2-site.ru', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
