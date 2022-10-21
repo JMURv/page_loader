@@ -1,4 +1,5 @@
 from urllib.parse import urlparse
+from urllib.parse import urljoin
 
 
 def url2name(url):
@@ -22,9 +23,11 @@ def url2name(url):
 def local_path(link, site_name, url):
     list_of_path = link.split('/')
     filename = list_of_path[-1]
+    new_url = urljoin(url, link)
+    name_index = new_url.rfind('/')
     if '.' in list_of_path[-1]:
-        return f"{site_name}_files/{url2name(urlparse(url).netloc)}-{filename}"
-    return f"{site_name}_files/{url2name(urlparse(url).netloc)}-{filename}.html"
+        return f"{site_name}_files/{url2name(new_url[:name_index])}-{filename}"
+    return f"{site_name}_files/{url2name(new_url[:name_index])}-{filename}.html"
 
 
 def http_path(link, site_name, url):
