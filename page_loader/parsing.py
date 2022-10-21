@@ -26,6 +26,7 @@ def download_assets(for_down, output):
         filename, link = asset[0], asset[1]
         out = os.path.join(output, filename)
         try:
+            # print(filename, link)
             r = req.get(link)
             with open(out, 'wb') as f:
                 f.write(r.content)
@@ -38,12 +39,12 @@ def download_assets(for_down, output):
 
 def validator_assets(url, link):
     down_link = link[:]
-    if not link.startswith('https://') or 'http://':
+    if not down_link.startswith('https://') or 'http://':
         down_link = urljoin(url, link)
     if urlparse(down_link).netloc == urlparse(url).netloc:
         filename = link.split('/')[-1]
-        rename_index = link.rfind('/')
-        rename_link = url2name(link[:rename_index].strip('/'))
+        rename_index = down_link.rfind('/')
+        rename_link = url2name(down_link[:rename_index].strip('/'))
         filename = f"{rename_link}-{filename}"
         filename = filename if '.' in filename else f"{url2name(link)}.html"
         if '?' in filename:
@@ -70,11 +71,8 @@ def prepare_assets(url, site_name):
         for link in soup.find_all(asset):
             if link.attrs.get(attr):
                 filename, down_link = validator_assets(url, link[attr])
-                # logger = logging.getLogger()
-                # logger.info(f"GET CONTENT {link[attr]} |||| {down_link}")
                 if filename == '0':
                     continue
-                print(link[attr])
                 for_download.append((filename, down_link))
                 new_link_name = generate_assets_path(link[attr], site_name, url)
                 link[attr] = link[attr].replace(link[attr], new_link_name)
