@@ -7,8 +7,6 @@ import logging
 from progress.bar import Bar
 from page_loader.naming_generators import url2name
 
-DIGITS = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-
 
 def makedir(output, dirname):
     newpath = f'{os.path.join(os.getcwd(), output, dirname)}'
@@ -46,17 +44,13 @@ def validator_assets(url, link):
         rename_index = down_link.rfind('/')
         rename_link = url2name(down_link[:rename_index].strip('/'))
         filename = f"{rename_link}-{filename}"
-        filename = filename if '.' in filename else f"{url2name(down_link)}.html"
+        filename = filename if '.' in filename \
+            else f"{url2name(down_link)}.html"
         if '?' in filename:
             index = filename.rfind('?')
             filename = filename[:index]
         return filename, down_link
     return '0', down_link
-
-
-# print(validator_assets('https://hexlet.io/courses', '/about/rss.css'))
-# print(validator_assets('https://hexlet.io/courses', '/about/contacts'))
-# print(validator_assets('https://hexlet.io/courses', 'https://cdn2-site.ru'))
 
 
 def prepare_assets(url, site_name):

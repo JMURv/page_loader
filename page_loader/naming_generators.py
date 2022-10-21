@@ -16,10 +16,6 @@ def url2name(url):
     return name.strip('-')
 
 
-# localhost-blog-about_files/localhost-blog-about.html - expected
-# /blog/about - input
-
-
 def local_path(link, site_name, url):
     list_of_path = link.split('/')
     filename = list_of_path[-1]
@@ -50,7 +46,15 @@ def generate_assets_path(link, site_name, url):
     return local_path(link, site_name, url)
 
 
-# print(generate_assets_path('/about/rss.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
-# print(generate_assets_path('/about/contacts', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
-# print(generate_assets_path('https://cdn2-site.ru', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
-# print(generate_assets_path('http://my-site.ru/assets/scripts.js', 'my-site-ru', 'https://my-site.ru'))
+# print(generate_assets_path(
+# '/about/rss.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'
+# ))
+# print(generate_assets_path(
+# '/about/contacts', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'
+# ))
+# print(generate_assets_path(
+# 'https://cdn2-site.ru', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'
+# ))
+# print(generate_assets_path(
+# 'http://my-site.ru/assets/scripts.js', 'my-site-ru', 'https://my-site.ru'
+# ))

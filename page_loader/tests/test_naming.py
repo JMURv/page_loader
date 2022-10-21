@@ -1,6 +1,7 @@
 import pytest
 from page_loader.naming_generators import generate_assets_path
 from page_loader.naming_generators import url2name
+from page_loader.parsing import validator_assets
 
 
 @pytest.mark.parametrize(
@@ -56,3 +57,29 @@ def test_correct_name(url, result):
 def test_naming(site_name, url, fixture, result):
     output = generate_assets_path(fixture, site_name, url)
     assert output == result
+
+
+@pytest.mark.parametrize(
+    ("url", "link", 'expected'),
+    [
+        (
+            'https://hexlet.io/courses',
+            '/about/rss.css',
+            ('hexlet-io-about-rss.css', 'https://hexlet.io/about/rss.css')
+        ),
+        (
+            'https://hexlet.io/courses',
+            '/about/contacts',
+            ('hexlet-io-about-contacts.html',
+             'https://hexlet.io/about/contacts')
+        ),
+        (
+            'https://hexlet.io/courses',
+            'https://cdn2-site.ru',
+            ('0', 'https://cdn2-site.ru')
+        ),
+    ]
+)
+def test_assets_validator(url, link, expected):
+    result = validator_assets(url, link)
+    assert result == expected
