@@ -21,7 +21,7 @@ def url2name(url):
 
 def local_path(link, site_name, url):
     list_of_path = link.split('/')
-    filename = '-'.join(list_of_path)
+    filename = list_of_path[-1]
     if '.' in list_of_path[-1]:
         return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
     return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
@@ -42,7 +42,7 @@ def http_path(link, site_name, url):
 
 
 def generate_assets_path(link, site_name, url):
-    if link.lower().startswith("https"):
+    if link.lower().startswith("https") or "http":
         return http_path(link, site_name, url)
     return local_path(link, site_name, url)
 
@@ -50,3 +50,4 @@ def generate_assets_path(link, site_name, url):
 # print(generate_assets_path('/about/rss.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
 # print(generate_assets_path('/about/contacts', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
 # print(generate_assets_path('https://cdn2-site.ru', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'))
+# print(generate_assets_path('http://my-site.ru/assets/scripts.js', 'my-site-ru', 'https://my-site.ru'))
