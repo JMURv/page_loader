@@ -23,8 +23,8 @@ def local_path(link, site_name, url):
     list_of_path = link.split('/')
     filename = list_of_path[-1]
     if '.' in list_of_path[-1]:
-        return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}"
-    return f"{site_name}_files/{url2name(urlparse(url).netloc)}{filename}.html"
+        return f"{site_name}_files/{url2name(urlparse(url).netloc)}-{filename}"
+    return f"{site_name}_files/{url2name(urlparse(url).netloc)}-{filename}.html"
 
 
 def http_path(link, site_name, url):
@@ -42,7 +42,7 @@ def http_path(link, site_name, url):
 
 
 def generate_assets_path(link, site_name, url):
-    if link.lower().startswith("https") or "http":
+    if link.lower().startswith("https") or link.lower().startswith("http"):
         return http_path(link, site_name, url)
     return local_path(link, site_name, url)
 
