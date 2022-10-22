@@ -8,7 +8,7 @@ def download(url, output):
     logging.basicConfig(level='INFO')
     logger = logging.getLogger()
     logger.info(f'Requested url: {url}')
-    site_name = url2name(url)
+    site_name = url2name(url)  # Get the right name for file
     html_out = os.path.join(output, f"{site_name}.html")
     logger.info(f'Writing file to: {html_out}')
     html, for_down = prepare_assets(url, site_name)

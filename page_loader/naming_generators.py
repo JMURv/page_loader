@@ -44,17 +44,3 @@ def generate_assets_path(link, site_name, url):
     if link.lower().startswith("https") or link.lower().startswith("http"):
         return http_path(link, site_name, url)
     return local_path(link, site_name, url)
-
-
-# print(generate_assets_path(
-# '/about/rss.css', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'
-# ))
-# print(generate_assets_path(
-# '/about/contacts', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'
-# ))
-# print(generate_assets_path(
-# 'https://cdn2-site.ru', 'ru-hexlet-io-courses', 'https://ru.hexlet.io/courses'
-# ))
-# print(generate_assets_path(
-# 'http://my-site.ru/assets/scripts.js', 'my-site-ru', 'https://my-site.ru'
-# ))
