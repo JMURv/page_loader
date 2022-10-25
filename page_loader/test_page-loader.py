@@ -16,11 +16,13 @@ def get_assets_path(name):
         'page_loader', 'tests', 'fixtures', 'local', 'assets', name
     )
 
+
 TEST_ASSETS = [
     (get_assets_path('my_img.png'), 'https://my-site.ru/assets/my_img.png'),
     (get_assets_path('my_css.css'), 'https://my-site.ru/assets/my_css.css'),
     (get_assets_path('my_script.js'), 'https://my-site.ru/assets/my_script.js')
 ]
+
 
 @pytest.mark.parametrize(
     ("test_url", "fixture_path"),
@@ -51,7 +53,6 @@ def test_download(test_url, fixture_path):
                 assert len(os.listdir(temp_dir)) == 2
 
 
-
 # @pytest.mark.parametrize(
 #     ("url", "fixture_path"),
 #     [
@@ -77,7 +78,8 @@ def test_download(test_url, fixture_path):
 #
 #                 # mock Script
 #                 script = open(get_assets_path('my_script.js'), 'rb').read()
-#                 m.get('https://my-site.ru/assets/my_script.js', content=script)
+#                 m.get(
+#                 'https://my-site.ru/assets/my_script.js', content=script)
 #
 #                 # mock Site
 #                 m.get(url, text=f.read(), status_code=200)

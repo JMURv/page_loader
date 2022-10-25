@@ -7,4 +7,3 @@ def test_prepare_assets():
     site_name = 'my-site-ru'
     with pytest.raises(Exception):
         assets.prepare_assets(url, site_name)
-
