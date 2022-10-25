@@ -33,7 +33,7 @@ TEST_ASSETS = [
         ),
     ]
 )
-def test_download(test_url, fixture_path):
+def test_download_assets(test_url, fixture_path):
     fixture_path = get_fixture_path(fixture_path)
     with tempfile.TemporaryDirectory() as tmpdirname:
         temp_dir = f"{os.path.abspath(tmpdirname)}"
@@ -41,16 +41,14 @@ def test_download(test_url, fixture_path):
             with open(fixture_path, 'r', encoding='UTF8') as f:
                 for path, url in TEST_ASSETS:
                     with open(path, "rb") as asset_path:
-                        m.get(
-                            f"{test_url}/{url}",
-                            content=asset_path.read()
-                        )
+                        m.get(url, content=asset_path.read())
                 m.get(test_url, text=f.read(), status_code=200)
                 output_path = download(test_url, temp_dir)
                 files_path = os.path.join(temp_dir, 'my-site-ru_files')
                 assert os.path.exists(output_path)
                 assert os.path.exists(files_path)
                 assert len(os.listdir(temp_dir)) == 2
+                assert len(os.listdir(files_path)) == 3
 
 
 # @pytest.mark.parametrize(
