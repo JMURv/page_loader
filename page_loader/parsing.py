@@ -34,7 +34,7 @@ def download_assets(for_down, output):
 
 def validator_assets(url, link):
     down_link = link[:]  # Copy link
-    if not down_link.startswith('https://') or 'http://':
+    if not down_link.startswith(('https://', 'http://')):
         down_link = urljoin(url, link)  # Create download link
     if urlparse(down_link).netloc == urlparse(url).netloc:  # If link is local
         filename = link.split('/')[-1]  # Extract filename from link
@@ -64,7 +64,7 @@ def prepare_assets(url, site_name):
                     continue
                 for_download.append((filename, down_link))
                 # Generate new paths for HTML file
-                new_link_name = generate_assets_path(link[attr], site_name, url)
+                new_link_name = generate_assets_path(url, link[attr])
                 # Replace paths with newly generated
                 link[attr] = link[attr].replace(link[attr], new_link_name)
     return soup.prettify(), for_download
