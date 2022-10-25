@@ -1,6 +1,6 @@
 import os
 import logging
-from page_loader.parsing import prepare_assets, download_assets
+from page_loader.assets import prepare_assets, download_assets
 from page_loader.url import url2name
 
 

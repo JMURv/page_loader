@@ -1,7 +1,7 @@
 import pytest
 from page_loader.url import generate_assets_path
 from page_loader.url import url2name
-from page_loader.parsing import validator_assets
+from page_loader.assets import validator_assets
 
 
 @pytest.mark.parametrize(

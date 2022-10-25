@@ -1,19 +1,13 @@
-from urllib.parse import urlparse
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
+import re
 
 
 def url2name(url):
-    name = ''
-    if url.startswith('http://'):
-        url = url[7:]
-    elif url.startswith('https://'):
-        url = url[8:]
-    for char in url:
-        if char.isalnum():
-            name += char
-        else:
-            name += '-'
-    return name.strip('-')
+    parsed = urlparse(url.strip('/'))
+    url = f"{parsed.netloc}{parsed.path}"
+    reg_exp = re.compile(r"[^a-zA-Z\d+]")
+    result = reg_exp.sub('-', url)
+    return result
 
 
 def local_path(url, link):

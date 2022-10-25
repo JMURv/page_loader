@@ -39,7 +39,7 @@ def validator_assets(url, link):
     if urlparse(down_link).netloc == urlparse(url).netloc:  # If link is local
         filename = link.split('/')[-1]  # Extract filename from link
         rename_index = down_link.rfind('/')
-        rename_link = url2name(down_link[:rename_index].strip('/'))
+        rename_link = url2name(down_link[:rename_index])
         filename = f"{rename_link}-{filename}"  # Rename filename by full path
         filename = filename if '.' in filename \
             else f"{url2name(down_link)}.html"  # Has no extention - it's HTML
