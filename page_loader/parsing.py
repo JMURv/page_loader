@@ -2,19 +2,17 @@ import os
 import requests as req
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin, urlparse
-from page_loader.naming_generators import generate_assets_path
+from page_loader.url import generate_assets_path
 import logging
 from progress.bar import Bar
-from page_loader.naming_generators import url2name
+from page_loader.url import url2name
 
 
-def makedir(output, dirname):
-    newpath = f'{os.path.join(os.getcwd(), output, dirname)}'
-    if not os.path.exists(newpath):  # Check if dir already exists
-        logging.info(
-            f"Directory not exists: {newpath}")
-        os.makedirs(newpath)
-    return newpath
+ASSETS = {
+    'img': 'src',
+    'link': 'href',
+    'script': 'src'
+}
 
 
 def download_assets(for_down, output):
@@ -54,13 +52,11 @@ def validator_assets(url, link):
 
 def prepare_assets(url, site_name):
     response = req.get(url)  # Get response
-    if response.status_code != 200:  # Check if resp is success
-        raise Warning(f'Status code error: {response.status_code}')
+    response.raise_for_status()  # Check if resp is success
     for_download = []  # Array with assets info as name and link
     soup = bs(response.content, 'html.parser')
-    assets = ['img', 'link', 'script']  # List of assets we need
-    for asset in assets:
-        attr = 'src' if asset in ('img', 'script') else 'href'  # Get right attr
+    for asset in ASSETS.keys():
+        attr = ASSETS[asset]  # Get right attr
         for link in soup.find_all(asset):
             if link.attrs.get(attr):  # If link has src or href attr
                 filename, down_link = validator_assets(url, link[attr])

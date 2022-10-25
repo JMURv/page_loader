@@ -10,4 +10,5 @@ def test_prepare_assets():
         m.get(url, status_code=404)
         with pytest.raises(Exception) as error:
             parsing.prepare_assets(url, site_name)
-        assert error.value.args[0] == 'Status code error: 404'
+        assert error.value.args[0] == \
+               '404 Client Error: None for url: https://my_site.ru/'

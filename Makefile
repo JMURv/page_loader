@@ -23,10 +23,10 @@ test-cov:
 	poetry run pytest --cov=page_loader --cov-report xml
 
 test-1:
-	poetry run page-loader -o page_loader\tests\fixtures\test_out\ https://ru.hexlet.io/courses
+	poetry run page-loader -o page_loader\tests\fixtures\ https://ru.hexlet.io/courses
 
 test-2:
-	poetry run page-loader -o page_loader\tests\fixtures\test_out\ https://skillbox.ru/
+	poetry run page-loader -o page_loader\tests\fixtures\ https://skillbox.ru/
 
 test-3:
 	poetry run page-loader -o page_loader\tests\fixtures\test_out\ https://designdepot.ru/projects/

@@ -17,11 +17,10 @@ def url2name(url):
 
 
 def local_path(link, site_name, url):
-    list_of_path = link.split('/')
-    filename = list_of_path[-1]
+    filename = link.split('/')[-1]
     new_url = urljoin(url, link)
     name_index = new_url.rfind('/')
-    if '.' in list_of_path[-1]:
+    if '.' in filename:
         return f"{site_name}_files/{url2name(new_url[:name_index])}-{filename}"
     return f"{site_name}_files/{url2name(new_url[:name_index])}-{filename}.html"
 

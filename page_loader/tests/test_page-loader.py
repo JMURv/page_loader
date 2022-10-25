@@ -45,7 +45,7 @@ def test_download(url, fixture_path):
                 m.get('https://my-site.ru/assets/my_script.js', content=script)
 
                 # mock Site
-                m.get(url, text=f.read())
+                m.get(url, text=f.read(), status_code=200)
 
                 output_path = download(url, temp_dir)
                 result = open(output_path, 'r', encoding='UTF-8').read()

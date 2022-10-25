@@ -1,7 +1,7 @@
 import os
 import logging
-from page_loader.parsing import makedir, prepare_assets, download_assets
-from page_loader.naming_generators import url2name
+from page_loader.parsing import prepare_assets, download_assets
+from page_loader.url import url2name
 
 
 def download(url, output):
@@ -15,7 +15,13 @@ def download(url, output):
     with open(html_out, 'w', encoding='UTF-8') as f:
         f.write(html)
     logger.info('Downloading assets..')
-    output_files = makedir(output, f"{site_name}_files")
+
+    output_files = f'{os.path.join(os.getcwd(), output, f"{site_name}_files")}'
+    if not os.path.exists(output_files):  # Check if dir already exists
+        logging.info(
+            f"Directory not exists: {output_files}")
+        os.makedirs(output_files)
+
     download_assets(for_down, output_files)
     logger.info('Finished!')
     return html_out
