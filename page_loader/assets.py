@@ -32,20 +32,24 @@ def download_assets(for_down, output):
     bar.finish()
 
 
+def create_filename(link):
+    filename = link.split('/')[-1]  # Extract filename from link
+    rename_link = url2name(link[:link.rfind('/')])
+    filename = f"{rename_link}-{filename}"  # Rename filename by full path
+    if '.' not in filename:
+        filename = f"{url2name(link)}.html"
+    if '?' in filename:  # Check for GET request in filename
+        index = filename.rfind('?')
+        filename = filename[:index]
+    return filename
+
+
 def validator_assets(url, link):
     down_link = link[:]  # Copy link
     if not down_link.startswith(('https://', 'http://')):
         down_link = urljoin(url, link)  # Create download link
     if urlparse(down_link).netloc == urlparse(url).netloc:  # If link is local
-        filename = link.split('/')[-1]  # Extract filename from link
-        rename_index = down_link.rfind('/')
-        rename_link = url2name(down_link[:rename_index])
-        filename = f"{rename_link}-{filename}"  # Rename filename by full path
-        filename = filename if '.' in filename \
-            else f"{url2name(down_link)}.html"  # Has no extention - it's HTML
-        if '?' in filename:  # Check for GET request in filename
-            index = filename.rfind('?')
-            filename = filename[:index]
+        filename = create_filename(down_link)
         return filename, down_link  # Successful return of local link and name
     return '0', down_link  # Return non-local as zero
 
