@@ -35,7 +35,7 @@ def download_assets(for_down, output):
     bar.finish()
 
 
-def validator_assets(url, link):
+def create_assets(url, link):
     down_link = link[:]  # Copy link
     if not down_link.startswith(('https://', 'http://')):
         down_link = urljoin(url, link)  # Create download link
@@ -59,7 +59,7 @@ def prepare_assets(url):
         attr = ASSETS[asset]  # Get right attr
         for link in soup.find_all(asset):
             if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
-                filename, down_link = validator_assets(url, link[attr])
+                filename, down_link = create_assets(url, link[attr])
                 for_download.append((filename, down_link))
                 # Generate new paths for HTML file
                 new_link_name = generate_assets_path(url, link[attr])

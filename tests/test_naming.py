@@ -1,7 +1,7 @@
 import pytest
 from page_loader.url import generate_assets_path
 from page_loader.url import url2name
-from page_loader.assets import validator_assets
+from page_loader.assets import create_assets
 
 
 @pytest.mark.parametrize(
@@ -77,5 +77,5 @@ def test_naming(link, url, result):
     ]
 )
 def test_assets_validator(url, link, expected):
-    result = validator_assets(url, link)
+    result = create_assets(url, link)
     assert result == expected
