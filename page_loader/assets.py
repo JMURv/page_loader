@@ -22,7 +22,7 @@ def download_assets(for_down, output):
     bar = Bar('Loading', fill='|', suffix='%(percent)d%%', max=len(for_down))
     for asset in for_down:
         bar.next()
-        filename, link = asset[0], asset[1]  # Get info from array
+        filename, link = asset  # Get info from array
         out = os.path.join(output, filename)  # Create right output path
         try:
             r = req.get(link)
@@ -35,18 +35,8 @@ def download_assets(for_down, output):
     bar.finish()
 
 
-def create_assets(url, link):
-    down_link = link[:]  # Copy link
-    if not down_link.startswith(('https://', 'http://')):
-        down_link = urljoin(url, link)  # Create download link
-    if urlparse(down_link).netloc == urlparse(url).netloc:  # If link is local
-        filename = create_filename(down_link)
-        return filename, down_link  # Successful return of local link and name
-    return '0', down_link  # Return non-local as zero
-
-
 def is_valid_asset(url, link):
-    down_link = urljoin(url, link)  # Create download link
+    down_link = urljoin(url, link)
     return True if urlparse(down_link).netloc == urlparse(url).netloc else False
 
 
@@ -59,7 +49,8 @@ def prepare_assets(url):
         attr = ASSETS[asset]  # Get right attr
         for link in soup.find_all(asset):
             if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
-                filename, down_link = create_assets(url, link[attr])
+                down_link = urljoin(url, link[attr])
+                filename = create_filename(down_link)
                 for_download.append((filename, down_link))
                 # Generate new paths for HTML file
                 new_link_name = generate_assets_path(url, link[attr])

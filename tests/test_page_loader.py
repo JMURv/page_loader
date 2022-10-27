@@ -5,6 +5,11 @@ import requests_mock
 from page_loader import download
 
 
+def read_content(filepath, mode):
+    with open(filepath, mode, encoding='UTF8') as f:
+        return f.read()
+
+
 def get_fixture_path(name):
     return os.path.join(
         'tests', 'fixtures', 'local', name
@@ -38,19 +43,17 @@ def test_download_assets(test_url, fixture_path):
     with tempfile.TemporaryDirectory() as tmpdirname:
         temp_dir = f"{os.path.abspath(tmpdirname)}"
         with requests_mock.Mocker() as m:
-            with open(fixture_path, 'r', encoding='UTF8') as f:
-                for path, url in TEST_ASSETS:
-                    with open(path, "rb") as asset_path:
-                        m.get(url, content=asset_path.read())
-                m.get(test_url, text=f.read(), status_code=200)
-                output_path = download(test_url, temp_dir)
-                result = open(output_path, 'r', encoding='UTF-8').read()
-                expected = open(
-                    get_fixture_path('expected_result.html'),
-                    'r', encoding='UTF-8').read()
-                files_path = os.path.join(temp_dir, 'my-site-ru_files')
-                assert os.path.exists(output_path)
-                assert os.path.exists(files_path)
-                assert len(os.listdir(temp_dir)) == 2
-                assert len(os.listdir(files_path)) == 3
-                assert result == expected
+            f = read_content(fixture_path, 'r')
+            for path, url in TEST_ASSETS:
+                with open(path, "rb") as asset_path:
+                    m.get(url, content=asset_path.read())
+            m.get(test_url, text=f, status_code=200)
+            output_path = download(test_url, temp_dir)
+            result = read_content(output_path, 'r')
+            expected = read_content(get_fixture_path('expected_result.html'), 'r')
+            files_path = os.path.join(temp_dir, 'my-site-ru_files')
+            assert os.path.exists(output_path)
+            assert os.path.exists(files_path)
+            assert len(os.listdir(temp_dir)) == 2
+            assert len(os.listdir(files_path)) == 3
+            assert result == expected
