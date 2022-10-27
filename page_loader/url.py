@@ -11,37 +11,46 @@ def url2name(url):
     return result
 
 
+# def local_path(url, link):
+#     new_url = urljoin(url, link)
+#     path, extension = os.path.splitext(new_url)
+#     if '.' in extension:
+#         return f"{url2name(url)}_files/{url2name(path)}{extension}"
+#     return f"{url2name(url)}_files/{url2name(path)}{extension}.html"
+
 def local_path(url, link):
     new_url = urljoin(url, link)
-    path, extension = os.path.splitext(new_url)
-    name_index = new_url.rfind('/')
-    if '.' in extension:
-        return f"{url2name(url)}_files/{url2name(path)}{extension}"
-    return f"{url2name(url)}_files/{url2name(path)}{extension}.html"
-
-print(local_path('https://ru.hexlet.io/courses', 'aboba/files/my_css'))
-
-
-def http_path(url, link):
-    link_domain = urlparse(link).netloc
     original_domain = urlparse(url).netloc
-    site_name = url2name(url)
-    if link_domain == original_domain:
-        filename = link.split('/')[-1]
-        if '.' in filename:
-            index = link.rfind("/")
-            out_link = f"{url2name(link[:index])}-{filename}"
-            return f"{site_name}_files/{out_link}"
-        else:
-            return f"{site_name}_files/{site_name}.html"
-    return link
+    if urlparse(new_url).netloc == original_domain:
+        path, extension = os.path.splitext(new_url)
+        if '.' in extension:
+            return f"{url2name(url)}_files/{url2name(path)}{extension}"
+        return f"{url2name(url)}_files/{url2name(path)}{extension}.html"
+    else:
+        return link
+
+# def http_path(url, link):
+#     link_domain = urlparse(link).netloc
+#     original_domain = urlparse(url).netloc
+#     site_name = url2name(url)
+#     if link_domain == original_domain:
+#         filename = link.split('/')[-1]
+#         if '.' in filename:
+#             index = link.rfind("/")
+#             out_link = f"{url2name(link[:index])}-{filename}"
+#             return f"{site_name}_files/{out_link}"
+#         else:
+#             return f"{site_name}_files/{site_name}.html"
+#     return link
 
 
 def generate_assets_path(url, link):
-    if link.startswith(('http', 'https')):
-        return http_path(url, link)
-    else:
-        return local_path(url, link)
+    return local_path(url, link)
+    # if link.startswith(('http', 'https')):
+    #     return http_path(url, link)
+    # else:
+    #     return local_path(url, link)
+# print(generate_assets_path('https://ru.hexlet.io/courses', 'courses/aboba/files/my_css'))
 
 
 def create_filename(link):
