@@ -1,6 +1,6 @@
 import pytest
 from page_loader.url import generate_assets_path
-from page_loader.url import url2name
+from page_loader.url import url2name, create_filename
 
 
 @pytest.mark.parametrize(
@@ -52,3 +52,32 @@ def test_correct_name(url, result):
 def test_naming(link, url, result):
     output = generate_assets_path(url, link)
     assert output == result
+
+
+@pytest.mark.parametrize(
+    ("link", "expected"),
+    [
+        (
+            'https://ru.hexlet.io/packs/js/runtime.js',
+            'ru-hexlet-io-packs-js-runtime.js'
+        ),
+        (
+            'https://cdn2.hexlet.io/assets/menu.css',
+            'cdn2-hexlet-io-assets-menu.css'
+        ),
+        (
+            '/courses',
+            'courses.html'
+        ),
+        (
+            '/assets/application.css',
+            'assets-application.css'
+        ),
+        (
+            'assets/application.png?test',
+            'assets-application.png'
+        )
+    ]
+)
+def test_create_filename(link, expected):
+    assert create_filename(link) == expected

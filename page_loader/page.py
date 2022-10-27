@@ -5,7 +5,6 @@ from page_loader.url import url2name
 
 
 def download(url, output):
-    logging.basicConfig(level='INFO')
     logger = logging.getLogger()
     logger.info(f'Requested url: {url}')
     site_name = url2name(url)  # Get the right name for file

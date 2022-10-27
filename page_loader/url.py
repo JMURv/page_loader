@@ -13,23 +13,21 @@ def url2name(url):
 
 def generate_assets_path(url, link):
     new_url = urljoin(url, link)
-    original_domain = urlparse(url).netloc
-    if urlparse(new_url).netloc == original_domain:
+    if urlparse(new_url).netloc == urlparse(url).netloc:
         path, extension = os.path.splitext(new_url)
         if '.' in extension:
             return f"{url2name(url)}_files/{url2name(path)}{extension}"
-        return f"{url2name(url)}_files/{url2name(path)}{extension}.html"
+        return f"{url2name(url)}_files/{url2name(path)}.html"
     else:
         return link
 
 
 def create_filename(link):
-    filename = link.split('/')[-1]  # Extract filename from link
-    rename_link = url2name(link[:link.rfind('/')])
-    filename = f"{rename_link}-{filename}"  # Rename filename by full path
+    path, extension = os.path.splitext(link)
+    rename_link = url2name(path)
+    filename = f"{rename_link}{extension}"  # Rename filename by full path
     if '.' not in filename:
-        filename = f"{url2name(link)}.html"
+        filename = f"{filename}.html"
     if '?' in filename:  # Check for GET request in filename
-        index = filename.rfind('?')
-        filename = filename[:index]
+        filename = filename[:filename.rfind('?')]
     return filename
