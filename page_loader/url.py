@@ -8,7 +8,7 @@ def url2name(url):
     url = f"{parsed.netloc}{parsed.path}"
     reg_exp = re.compile(r"[^a-zA-Z\d+]")
     result = reg_exp.sub('-', url)
-    return result.strip('-')
+    return result
 
 
 def local_path(url, link):
@@ -17,9 +17,9 @@ def local_path(url, link):
     name_index = new_url.rfind('/')
     if '.' in extension:
         return f"{url2name(url)}_files/{url2name(path)}{extension}"
-    return f"{url2name(url)}_files/{url2name(path)}-{extension}.html"
+    return f"{url2name(url)}_files/{url2name(path)}{extension}.html"
 
-# print(local_path('https://ru.hexlet.io/courses', 'aboba/files/my_css.css'))
+print(local_path('https://ru.hexlet.io/courses', 'aboba/files/my_css'))
 
 
 def http_path(url, link):
