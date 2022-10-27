@@ -8,7 +8,7 @@ def url2name(url):
     url = f"{parsed.netloc}{parsed.path}"
     reg_exp = re.compile(r"[^a-zA-Z\d+]")
     result = reg_exp.sub('-', url)
-    return result
+    return result.strip('-')
 
 
 def local_path(url, link):
