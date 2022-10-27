@@ -46,7 +46,8 @@ def validator_assets(url, link):
 
 
 def is_valid_asset(url, link):
-    return True if urlparse(link).netloc == urlparse(url).netloc else False
+    down_link = urljoin(url, link)  # Create download link
+    return True if urlparse(down_link).netloc == urlparse(url).netloc else False
 
 
 def prepare_assets(url):
@@ -57,10 +58,8 @@ def prepare_assets(url):
     for asset in ASSETS.keys():
         attr = ASSETS[asset]  # Get right attr
         for link in soup.find_all(asset):
-            if link.attrs.get(attr):  # If link has src or href attr
+            if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
                 filename, down_link = validator_assets(url, link[attr])
-                if filename == '0':  # Check validated info for non-local links
-                    continue
                 for_download.append((filename, down_link))
                 # Generate new paths for HTML file
                 new_link_name = generate_assets_path(url, link[attr])
