@@ -2,10 +2,9 @@ import os
 import requests as req
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin, urlparse
-from page_loader.url import generate_assets_path
+from page_loader.url import generate_assets_path, create_filename
 import logging
 from progress.bar import Bar
-from page_loader.url import url2name
 
 
 ASSETS = {
@@ -16,6 +15,10 @@ ASSETS = {
 
 
 def download_assets(for_down, output):
+    if not os.path.exists(output):  # Check if dir already exists
+        logging.info(
+            f"Directory not exists: {output}")
+        os.makedirs(output)
     bar = Bar('Loading', fill='|', suffix='%(percent)d%%', max=len(for_down))
     for asset in for_down:
         bar.next()
@@ -32,18 +35,6 @@ def download_assets(for_down, output):
     bar.finish()
 
 
-def create_filename(link):
-    filename = link.split('/')[-1]  # Extract filename from link
-    rename_link = url2name(link[:link.rfind('/')])
-    filename = f"{rename_link}-{filename}"  # Rename filename by full path
-    if '.' not in filename:
-        filename = f"{url2name(link)}.html"
-    if '?' in filename:  # Check for GET request in filename
-        index = filename.rfind('?')
-        filename = filename[:index]
-    return filename
-
-
 def validator_assets(url, link):
     down_link = link[:]  # Copy link
     if not down_link.startswith(('https://', 'http://')):
@@ -54,7 +45,11 @@ def validator_assets(url, link):
     return '0', down_link  # Return non-local as zero
 
 
-def prepare_assets(url, site_name):
+def is_valid_asset(url, link):
+    return True if urlparse(link).netloc == urlparse(url).netloc else False
+
+
+def prepare_assets(url):
     response = req.get(url)  # Get response
     response.raise_for_status()  # Check if resp is success
     for_download = []  # Array with assets info as name and link

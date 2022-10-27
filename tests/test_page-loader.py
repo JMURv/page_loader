@@ -7,13 +7,13 @@ from page_loader import download
 
 def get_fixture_path(name):
     return os.path.join(
-        'page_loader', 'tests', 'fixtures', 'local', name
+        'tests', 'fixtures', 'local', name
     )
 
 
 def get_assets_path(name):
     return os.path.join(
-        'page_loader', 'tests', 'fixtures', 'local', 'assets', name
+        'tests', 'fixtures', 'local', 'assets', name
     )
 
 
