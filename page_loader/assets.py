@@ -15,15 +15,15 @@ ASSETS = {
 
 
 def download_assets(for_down, output):
-    if not os.path.exists(output):  # Check if dir already exists
+    if not os.path.exists(output):
         logging.info(
             f"Directory not exists: {output}")
         os.makedirs(output)
     bar = Bar('Loading', fill='|', suffix='%(percent)d%%', max=len(for_down))
     for asset in for_down:
         bar.next()
-        filename, link = asset  # Get info from array
-        out = os.path.join(output, filename)  # Create right output path
+        filename, link = asset
+        out = os.path.join(output, filename)
         try:
             r = req.get(link)
             with open(out, 'wb') as f:
@@ -42,12 +42,12 @@ def is_valid_asset(url, link):
 
 
 def prepare_assets(url):
-    response = req.get(url)  # Get response
-    response.raise_for_status()  # Check if resp is success
-    for_download = []  # Array with assets info as name and link
+    response = req.get(url)
+    response.raise_for_status()
+    for_download = []
     soup = bs(response.content, 'html.parser')
     for asset in ASSETS.keys():
-        attr = ASSETS[asset]  # Get right attr
+        attr = ASSETS[asset]
         for link in soup.find_all(asset):
             if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
                 down_link = urljoin(url, link[attr])
