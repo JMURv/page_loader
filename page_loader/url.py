@@ -12,14 +12,10 @@ def url2name(url):
 
 
 def generate_assets_path(url, link):
-    new_url = urljoin(url, link)
-    if urlparse(new_url).netloc == urlparse(url).netloc:
-        path, extension = os.path.splitext(new_url)
-        if '.' in extension:
-            return f"{url2name(url)}_files/{url2name(path)}{extension}"
-        return f"{url2name(url)}_files/{url2name(path)}.html"
-    else:
-        return link
+    path, extension = os.path.splitext(urljoin(url, link))
+    if '.' in extension:
+        return f"{url2name(url)}_files/{url2name(path)}{extension}"
+    return f"{url2name(url)}_files/{url2name(path)}.html"
 
 
 def create_filename(link):

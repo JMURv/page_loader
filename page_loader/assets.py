@@ -36,8 +36,9 @@ def download_assets(for_down, output):
 
 
 def is_valid_asset(url, link):
-    down_link = urljoin(url, link)
-    return True if urlparse(down_link).netloc == urlparse(url).netloc else False
+    if link.startswith(('http://', 'https://')):
+        return True if urlparse(link).netloc == urlparse(url).netloc else False
+    return True
 
 
 def prepare_assets(url):
@@ -52,8 +53,6 @@ def prepare_assets(url):
                 down_link = urljoin(url, link[attr])
                 filename = create_filename(down_link)
                 for_download.append((filename, down_link))
-                # Generate new paths for HTML file
                 new_link_name = generate_assets_path(url, link[attr])
-                # Replace paths with newly generated
                 link[attr] = link[attr].replace(link[attr], new_link_name)
     return soup.prettify(), for_download

@@ -33,11 +33,6 @@ def test_correct_name(url, result):
             'ru-hexlet-io-courses_files/ru-hexlet-io-packs-js-runtime.js'
         ),
         (
-            'https://cdn2.hexlet.io/assets/menu.css',
-            'https://ru.hexlet.io/courses',
-            'https://cdn2.hexlet.io/assets/menu.css'
-        ),
-        (
             '/courses',
             'https://ru.hexlet.io/courses',
             'ru-hexlet-io-courses_files/ru-hexlet-io-courses.html'
