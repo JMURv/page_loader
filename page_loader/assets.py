@@ -2,7 +2,7 @@ import os
 import requests as req
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin, urlparse
-from page_loader.url import generate_html_path, to_dir_path
+from page_loader.url import generate_path, to_dir_path
 import logging
 from progress.bar import Bar
 
@@ -54,7 +54,7 @@ def prepare_assets(url, output):
         for link in soup.find_all(asset):
             if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
                 down_link = urljoin(url, link[attr])
-                filename = generate_html_path(url, down_link)
+                filename = generate_path(url, down_link)
                 outpath = os.path.join(output, filename)
                 for_download.append((outpath, down_link))
                 link[attr] = link[attr].replace(link[attr], filename)

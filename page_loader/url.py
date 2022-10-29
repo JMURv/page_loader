@@ -25,7 +25,7 @@ def create_filename(url):
     return filename
 
 
-def generate_html_path(url, path_to_asset):
+def generate_path(url, path_to_asset):
     path, extension = os.path.splitext(path_to_asset)
     if '.' in extension:
         return f"{to_dir_path(url)}{create_filename(path_to_asset)}"
