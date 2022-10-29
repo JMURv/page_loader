@@ -11,17 +11,20 @@ def url2name(url):
     return result
 
 
+def to_dir_path(url):
+    return f"{url2name(url)}_files/"
+
+
 def generate_assets_path(url, link):
     path, extension = os.path.splitext(urljoin(url, link))
     if '.' in extension:
-        return f"{url2name(url)}_files/{url2name(path)}{extension}"
-    return f"{url2name(url)}_files/{url2name(path)}.html"
+        return f"{to_dir_path(url)}{url2name(path)}{extension}"
+    return f"{to_dir_path(url)}{url2name(path)}.html"
 
 
-def create_filename(link):
-    path, extension = os.path.splitext(link)
-    rename_link = url2name(path)
-    filename = f"{rename_link}{extension}"  # Rename filename by full path
+def create_filename(url):
+    path, extension = os.path.splitext(url)
+    filename = f"{url2name(path)}{extension}"  # Rename filename by full path
     if '.' not in filename:
         filename = f"{filename}.html"
     if '?' in filename:  # Check for GET request in filename

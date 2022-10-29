@@ -2,7 +2,7 @@ import os
 import requests as req
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin, urlparse
-from page_loader.url import generate_assets_path, create_filename
+from page_loader.url import generate_assets_path, create_filename, to_dir_path
 import logging
 from progress.bar import Bar
 
@@ -14,16 +14,17 @@ ASSETS = {
 }
 
 
-def download_assets(for_down, output):
-    if not os.path.exists(output):
+def download_assets(for_down, output, url):
+    dir_output = f"{os.path.join(output, to_dir_path(url))}"
+    if not os.path.exists(dir_output):
         logging.info(
-            f"Directory not exists: {output}")
-        os.makedirs(output)
+            f"Directory not exists: {dir_output}")
+        os.makedirs(dir_output)
     bar = Bar('Loading', fill='|', suffix='%(percent)d%%', max=len(for_down))
     for asset in for_down:
         bar.next()
         filename, link = asset
-        out = os.path.join(output, filename)
+        out = os.path.join(dir_output, filename)
         try:
             r = req.get(link)
             with open(out, 'wb') as f:

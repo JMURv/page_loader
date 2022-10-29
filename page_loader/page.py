@@ -1,7 +1,7 @@
 import os
 import logging
 from page_loader.assets import prepare_assets, download_assets
-from page_loader.url import url2name
+from page_loader.url import url2name, to_dir_path
 
 
 def download(url, output):
@@ -14,7 +14,6 @@ def download(url, output):
     with open(html_outpath, 'w', encoding='UTF-8') as f:
         f.write(html)
     logger.info('Downloading assets..')
-    output_files = f'{os.path.join(os.getcwd(), output, f"{site_name}_files")}'
-    download_assets(for_down, output_files)
+    download_assets(for_down, output, url)
     logger.info('Finished!')
     return html_outpath
