@@ -15,13 +15,6 @@ def to_dir_path(url):
     return f"{url2name(url)}_files/"
 
 
-def generate_html_path(or_url, url):
-    path, extension = os.path.splitext(url)
-    if '.' in extension:
-        return f"{to_dir_path(or_url)}{url2name(path)}{extension}"
-    return f"{to_dir_path(or_url)}{url2name(path)}.html"
-
-
 def create_filename(url):
     path, extension = os.path.splitext(url)
     filename = f"{url2name(path)}{extension}"  # Rename filename by full path
@@ -30,5 +23,13 @@ def create_filename(url):
     if '?' in filename:  # Check for GET request in filename
         filename = filename[:filename.rfind('?')]
     return filename
+
+
+def generate_html_path(or_url, url):
+    path, extension = os.path.splitext(url)
+    if '.' in extension:
+        return f"{to_dir_path(or_url)}{create_filename(url)}"
+    return f"{to_dir_path(or_url)}{create_filename(url)}"
+
 # print(create_filename('http://ru.hexlet.io/courses/files/rss.css'))
-# print(generate_html_path('http://ru.hexlet.io/courses', 'files/rss.css'))
+# print(generate_html_path('http://ru.hexlet.io/courses', 'http://ru.hexlet.io/courses/files/rss.css'))
