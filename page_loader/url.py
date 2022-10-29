@@ -15,11 +15,11 @@ def to_dir_path(url):
     return f"{url2name(url)}_files/"
 
 
-def generate_assets_path(url, link):
-    path, extension = os.path.splitext(urljoin(url, link))
+def generate_html_path(or_url, url):
+    path, extension = os.path.splitext(url)
     if '.' in extension:
-        return f"{to_dir_path(url)}{url2name(path)}{extension}"
-    return f"{to_dir_path(url)}{url2name(path)}.html"
+        return f"{to_dir_path(or_url)}{url2name(path)}{extension}"
+    return f"{to_dir_path(or_url)}{url2name(path)}.html"
 
 
 def create_filename(url):
@@ -30,3 +30,5 @@ def create_filename(url):
     if '?' in filename:  # Check for GET request in filename
         filename = filename[:filename.rfind('?')]
     return filename
+# print(create_filename('http://ru.hexlet.io/courses/files/rss.css'))
+# print(generate_html_path('http://ru.hexlet.io/courses', 'files/rss.css'))

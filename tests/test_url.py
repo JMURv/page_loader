@@ -1,5 +1,5 @@
 import pytest
-from page_loader.url import generate_assets_path
+from page_loader.url import generate_html_path
 from page_loader.url import url2name, create_filename
 
 
@@ -45,7 +45,7 @@ def test_correct_name(url, result):
     ]
 )
 def test_naming(link, url, result):
-    output = generate_assets_path(url, link)
+    output = generate_html_path(url, link)
     assert output == result
 
 
