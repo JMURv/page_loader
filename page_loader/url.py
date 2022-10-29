@@ -1,4 +1,4 @@
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 import re
 import os
 
@@ -30,6 +30,3 @@ def generate_html_path(or_url, url):
     if '.' in extension:
         return f"{to_dir_path(or_url)}{create_filename(url)}"
     return f"{to_dir_path(or_url)}{create_filename(url)}"
-
-# print(create_filename('http://ru.hexlet.io/courses/files/rss.css'))
-# print(generate_html_path('http://ru.hexlet.io/courses', 'http://ru.hexlet.io/courses/files/rss.css'))

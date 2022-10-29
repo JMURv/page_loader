@@ -2,7 +2,7 @@ import os
 import requests as req
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin, urlparse
-from page_loader.url import generate_html_path, to_dir_path#, create_filename
+from page_loader.url import generate_html_path, to_dir_path
 import logging
 from progress.bar import Bar
 
@@ -54,6 +54,5 @@ def prepare_assets(url):
                 down_link = urljoin(url, link[attr])
                 filename = generate_html_path(url, down_link)
                 for_download.append((filename, down_link))
-                new_link_name = generate_html_path(url, down_link)
-                link[attr] = link[attr].replace(link[attr], new_link_name)
+                link[attr] = link[attr].replace(link[attr], filename)
     return soup.prettify(), for_download

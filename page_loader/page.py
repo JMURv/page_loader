@@ -1,7 +1,7 @@
 import os
 import logging
 from page_loader.assets import prepare_assets, download_assets
-from page_loader.url import url2name, to_dir_path
+from page_loader.url import url2name
 
 
 def download(url, output):
