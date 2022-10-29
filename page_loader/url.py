@@ -17,16 +17,16 @@ def to_dir_path(url):
 
 def create_filename(url):
     path, extension = os.path.splitext(url)
-    filename = f"{url2name(path)}{extension}"  # Rename filename by full path
+    filename = f"{url2name(path)}{extension}"
     if '.' not in filename:
         filename = f"{filename}.html"
-    if '?' in filename:  # Check for GET request in filename
+    if '?' in filename:
         filename = filename[:filename.rfind('?')]
     return filename
 
 
-def generate_html_path(or_url, url):
-    path, extension = os.path.splitext(url)
+def generate_html_path(url, path_to_asset):
+    path, extension = os.path.splitext(path_to_asset)
     if '.' in extension:
-        return f"{to_dir_path(or_url)}{create_filename(url)}"
-    return f"{to_dir_path(or_url)}{create_filename(url)}"
+        return f"{to_dir_path(url)}{create_filename(path_to_asset)}"
+    return f"{to_dir_path(url)}{create_filename(path_to_asset)}"

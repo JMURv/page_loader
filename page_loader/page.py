@@ -5,15 +5,13 @@ from page_loader.url import url2name
 
 
 def download(url, output):
-    logger = logging.getLogger()
-    logger.info(f'Requested url: {url}')
+    logging.info(f'Requested url: {url}')
     site_name = url2name(url)  # Get the right name for file
     html_outpath = os.path.join(output, f"{site_name}.html")
-    logger.info(f'Writing file to: {html_outpath}')
-    html, for_down = prepare_assets(url)
+    logging.info(f'Writing file to: {html_outpath}')
+    html, for_down = prepare_assets(url, output)
     with open(html_outpath, 'w', encoding='UTF-8') as f:
         f.write(html)
-    logger.info('Downloading assets..')
     download_assets(for_down, output, url)
-    logger.info('Finished!')
+    logging.info('Finished!')
     return html_outpath
