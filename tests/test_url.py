@@ -1,6 +1,6 @@
 import pytest
 from page_loader.url import generate_path
-from page_loader.url import url2name, create_filename
+from page_loader.url import url2name
 
 
 @pytest.mark.parametrize(
@@ -20,7 +20,7 @@ from page_loader.url import url2name, create_filename
         )
     ]
 )
-def test_correct_name(url, result):
+def test_url2name(url, result):
     assert url2name(url) == result
 
 
@@ -42,37 +42,13 @@ def test_correct_name(url, result):
             '/assets/application.css',
             'ru-hexlet-io-courses_files/assets-application.css'
         ),
+        (
+            'https://ru.hexlet.io/courses',
+            '/assets/application.css?test_get',
+            'ru-hexlet-io-courses_files/assets-application.css'
+        ),
     ]
 )
-def test_naming(url, link, result):
+def test_generate_path(url, link, result):
     output = generate_path(url, link)
     assert output == result
-
-
-@pytest.mark.parametrize(
-    ("link", "expected"),
-    [
-        (
-            'https://ru.hexlet.io/packs/js/runtime.js',
-            'ru-hexlet-io-packs-js-runtime.js'
-        ),
-        (
-            'https://cdn2.hexlet.io/assets/menu.css',
-            'cdn2-hexlet-io-assets-menu.css'
-        ),
-        (
-            '/courses',
-            'courses.html'
-        ),
-        (
-            '/assets/application.css',
-            'assets-application.css'
-        ),
-        (
-            'assets/application.png?test',
-            'assets-application.png'
-        )
-    ]
-)
-def test_create_filename(link, expected):
-    assert create_filename(link) == expected

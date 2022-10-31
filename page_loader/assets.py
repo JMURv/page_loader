@@ -40,7 +40,9 @@ def download_assets(media_files, output_dir, url):
 
 def is_valid_asset(site_url, asset_url):
     if asset_url.startswith(('http://', 'https://')):
-        return True if urlparse(asset_url).netloc == urlparse(site_url).netloc else False
+        site_url_netloc = urlparse(site_url).netloc
+        asset_url_netloc = urlparse(asset_url).netloc
+        return True if asset_url_netloc == site_url_netloc else False
     return True
 
 
