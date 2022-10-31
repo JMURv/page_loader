@@ -1,5 +1,5 @@
 import os
-import requests as req
+import requests
 from bs4 import BeautifulSoup as bs
 from urllib.parse import urljoin, urlparse
 from page_loader.url import generate_path, to_dir_path
@@ -14,21 +14,21 @@ ASSETS = {
 }
 
 
-def download_assets(for_download, output, url):
-    dir_output = f"{os.path.join(output, to_dir_path(url))}"
+def download_assets(media_files, output_dir, url):
+    dir_output = f"{os.path.join(output_dir, to_dir_path(url))}"
     if not os.path.exists(dir_output):
         logging.info(
             f"Directory not exists: {dir_output}")
         os.makedirs(dir_output)
     bar = Bar(
-        'Loading', fill='|', suffix='%(percent)d%%', max=len(for_download)
+        'Loading', fill='|', suffix='%(percent)d%%', max=len(media_files)
     )
-    for asset in for_download:
+    for asset in media_files:
         bar.next()
         filename, link = asset
         try:
             logging.info('Downloading assets..')
-            r = req.get(link)
+            r = requests.get(link)
             with open(filename, 'wb') as f:
                 f.write(r.content)
         except Exception as ex:
@@ -38,16 +38,16 @@ def download_assets(for_download, output, url):
     bar.finish()
 
 
-def is_valid_asset(url, link):
-    if link.startswith(('http://', 'https://')):
-        return True if urlparse(link).netloc == urlparse(url).netloc else False
+def is_valid_asset(site_url, asset_url):
+    if asset_url.startswith(('http://', 'https://')):
+        return True if urlparse(asset_url).netloc == urlparse(site_url).netloc else False
     return True
 
 
-def prepare_assets(url, output):
-    response = req.get(url)
+def prepare_assets(url, output_dir):
+    response = requests.get(url)
     response.raise_for_status()
-    for_download = []
+    media_files = []
     soup = bs(response.content, 'html.parser')
     for asset in ASSETS.keys():
         attr = ASSETS[asset]
@@ -55,7 +55,7 @@ def prepare_assets(url, output):
             if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
                 down_link = urljoin(url, link[attr])
                 filename = generate_path(url, down_link)
-                outpath = os.path.join(output, filename)
-                for_download.append((outpath, down_link))
+                outpath = os.path.join(output_dir, filename)
+                media_files.append((outpath, down_link))
                 link[attr] = link[attr].replace(link[attr], filename)
-    return soup.prettify(), for_download
+    return soup.prettify(), media_files

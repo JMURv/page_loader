@@ -22,20 +22,8 @@ test-coverage:
 test-cov:
 	poetry run pytest --cov=page_loader --cov-report xml
 
-test-1:
-	poetry run page-loader -o page_loader\tests\fixtures\ https://ru.hexlet.io/courses
-
-test-2:
-	poetry run page-loader -o page_loader\tests\fixtures\ https://skillbox.ru/
-
-test-3:
-	poetry run page-loader -o page_loader\tests\fixtures\test_out\ https://designdepot.ru/projects/
-
 add:
 	git add .
-
-commit:
-	git commit -am "Fixes"
 
 p:
 	git push
