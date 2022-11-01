@@ -48,8 +48,7 @@ def prepare_assets(url, output_dir):
     response.raise_for_status()
     media_files = []
     soup = bs(response.content, 'html.parser')
-    for asset in ASSETS.keys():
-        attr = ASSETS[asset]
+    for asset, attr in ASSETS.items():
         for link in soup.find_all(asset):
             if link.attrs.get(attr) and is_valid_asset(url, link[attr]):
                 down_link = urljoin(url, link[attr])
