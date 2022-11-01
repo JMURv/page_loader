@@ -23,27 +23,24 @@ def download_assets(media_files, output_dir, url):
     bar = Bar(
         'Loading', fill='|', suffix='%(percent)d%%', max=len(media_files)
     )
-    for asset in media_files:
+    for asset_url, asset_path in media_files:
         bar.next()
-        filename, link = asset
         try:
             logging.info('Downloading assets..')
-            r = requests.get(link)
-            with open(filename, 'wb') as f:
-                f.write(r.content)
+            response = requests.get(asset_path)
+            with open(asset_url, 'wb') as file:
+                file.write(response.content)
         except Exception as ex:
             cause_info = (ex.__class__, ex, ex.__traceback__)
             logging.debug(str(ex), exc_info=cause_info)
-            logging.warning(f"Resource {link} wasn't downloaded")
+            logging.warning(f"Resource {asset_path} wasn't downloaded")
     bar.finish()
 
 
 def is_valid_asset(site_url, asset_url):
-    if asset_url.startswith(('http://', 'https://')):
-        site_url_netloc = urlparse(site_url).netloc
-        asset_url_netloc = urlparse(asset_url).netloc
-        return True if asset_url_netloc == site_url_netloc else False
-    return True
+    site_url_netloc = urlparse(site_url).netloc
+    asset_url_netloc = urlparse(asset_url).netloc
+    return not asset_url_netloc or site_url_netloc == asset_url_netloc
 
 
 def prepare_assets(url, output_dir):

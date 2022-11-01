@@ -5,8 +5,8 @@ from page_loader import download
 
 
 def read_content(filepath, mode):
-    with open(filepath, mode, encoding='UTF8') as f:
-        return f.read()
+    with open(filepath, mode, encoding='UTF8') as file:
+        return file.read()
 
 
 def get_fixture_path(name):
