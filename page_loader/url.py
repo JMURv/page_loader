@@ -18,10 +18,8 @@ def to_dir_path(url):
 def generate_path(url, path_to_asset):
     path, extension = os.path.splitext(path_to_asset)
     filename = f"{url2name(path)}{extension}"
-    if '.' not in filename:
+    if '.' not in extension:
         filename = f"{filename}.html"
     if '?' in filename:
         filename = filename[:filename.rfind('?')]
-    if '.' in extension:
-        return f"{to_dir_path(url)}{filename}"
     return f"{to_dir_path(url)}{filename}"
